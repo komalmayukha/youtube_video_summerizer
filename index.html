@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Summarizer</title>
+</head>
+<body>
+  <h1>YouTube Summarizer</h1>
+
+  <input type="text" id="ytUrl" placeholder="Enter YouTube URL">
+  <button onclick="summarize()">Summarize</button>
+
+  <p id="result"></p>
+
+  <script>
+    function summarize() {
+      const url = document.getElementById('ytUrl').value;
+
+      fetch('https://1a5a-34-125-125-122.ngrok-free.app/', {  // Replace with your real ngrok URL!
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: url })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('result').innerText = 'Summary: ' + data.summary;
+      })
+      .catch(error => {
+        document.getElementById('result').innerText = 'Error: ' + error;
+      });
+    }
+  </script>
+</body>
+</html>
